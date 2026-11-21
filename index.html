@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="bn" data-bs-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ইলেকট্রিক্যাল ইন্সটলেশন – ভর্তি প্রস্তুতি</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body{font-family:'Hind Siliguri',system-ui,sans-serif;line-height:1.8;font-size:1.05rem}
+.ex{border-left:4px solid var(--bs-primary);background:var(--bs-tertiary-bg);padding:.75rem 1rem;border-radius:.5rem}
+.co{border-radius:.6rem;padding:.7rem 1rem;margin:.6rem 0;border:1px solid}
+.co.k{background:#e7f1ff22;border-color:#0d6efd}.co.t{background:#dc354522;border-color:#dc3545}.co.m{background:#19875422;border-color:#198754}
+.opt{text-align:left;width:100%;margin:.25rem 0}
+.side a{display:block;padding:.3rem .6rem;border-radius:.4rem;text-decoration:none;color:inherit}
+.side a.on{background:var(--bs-primary);color:#fff}
+.side a.ok::after{content:" ✓";color:#198754}.side a.on.ok::after{color:#fff}
+.mod{font-size:.8rem;opacity:.65;margin-top:.8rem}
+</style>
+</head>
+<body>
+<nav class="navbar border-bottom sticky-top bg-body">
+ <div class="container-fluid gap-2">
+  <button class="btn btn-outline-secondary d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#side">☰ টপিক</button>
+  <a class="navbar-brand fw-bold" href="#t1">⚡ ইলেকট্রিক্যাল প্রস্তুতি</a>
+  <div class="flex-grow-1" style="max-width:220px"><div class="progress" style="height:8px"><div id="bar" class="progress-bar bg-success"></div></div><small id="pt" class="text-secondary"></small></div>
+  <button id="th" class="btn btn-sm btn-outline-secondary" aria-label="থিম">🌓</button>
+ </div>
+</nav>
+<div class="container-fluid"><div class="row">
+ <aside class="col-lg-3 col-xl-2 offcanvas-lg offcanvas-start p-3 border-end" id="side">
+  <div class="offcanvas-header d-lg-none"><b>টপিক</b><button class="btn-close" data-bs-dismiss="offcanvas"></button></div>
+  <div class="side" id="nav"></div>
+  <button id="rs" class="btn btn-sm btn-outline-danger mt-4 w-100">🔄 প্রগ্রেস রিসেট</button>
+ </aside>
+ <main class="col-lg-9 col-xl-8 p-3 p-md-4" id="main"></main>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const T=[
+{id:'t1',m:'মডিউল ১: ড্রয়িং',t:'সিঙ্গেল লাইন ডায়াগ্রাম (SLD)',
+ex:'বাড়ির ফ্লোর প্ল্যান যেমন পুরো বাড়ির সহজ নকশা, SLD তেমনি পুরো বিদ্যুৎ ব্যবস্থার সহজ নকশা।',
+p:['তিন ফেজের সব তার আলাদা না এঁকে একটি রেখায় দেখানো হয়, তাই নাম সিঙ্গেল লাইন।','থাকে: উৎস, মিটার, প্রধান ব্রেকার (MCCB/ACB), MDB/DB, ব্রেকার রেটিং, তারের সাইজ, লোড ও আর্থিং।','পড়ার নিয়ম: উৎস থেকে লোডের দিকে পড়ুন, প্রতিটি ব্রেকারের রেটিং তারের সাইজের সাথে মেলান।'],
+tb:[['ড্রয়িং','কী দেখায়'],['লাইটিং লেআউট','বাতি, ফ্যান, সুইচ'],['পাওয়ার লেআউট','সকেট ও ভারী লোড (এসি, গিজার)'],['SLD','পুরো বিতরণের সরল চিত্র'],['রাইজার','বহুতল ভবনে নিচ থেকে উপরে বিদ্যুতের পথ'],['আর্থিং','আর্থ ইলেকট্রোড ও তারের সংযোগ']],
+k:'SLD হলো বিদ্যুতের পথের এক-লাইনের মানচিত্র: উৎস → লোড।',
+tr:'ব্রেকারের রেটিং তারের বহনক্ষমতার বেশি হলে তার গরম হয়ে আগুন ধরতে পারে।',
+m:'"উৎস-মিটার-ব্রেকার-DB-লোড": বিদ্যুতের যাত্রাপথ ক্রমে মুখস্থ করুন।',
+q:[{q:'SLD-তে তিন ফেজ কীভাবে দেখানো হয়?',o:['তিনটি আলাদা রেখায়','একটি রেখায়','দেখানো হয় না'],a:1,e:'নামেই আছে সিঙ্গেল লাইন; তিন ফেজ একটি রেখায় দেখানো হয়।'},
+{q:'বহুতল ভবনে নিচ থেকে উপরে বিদ্যুতের পথ কোন ড্রয়িংয়ে থাকে?',o:['রাইজার ডায়াগ্রাম','লাইটিং লেআউট','আর্থিং ডায়াগ্রাম'],a:0,e:'রাইজার ডায়াগ্রামে বহুতল ভবনের বিদ্যুতের উল্লম্ব পথ দেখানো হয়।'}]},
+{id:'t2',m:'মডিউল ২: নিরাপত্তা',t:'ইলেকট্রিক শক ও LOTO',
+ex:'রাস্তা মেরামতের সময় "কাজ চলছে" সাইন ও ব্যারিকেড দেওয়া হয়, LOTO হলো বিদ্যুতের জন্য সেই ব্যবস্থা।',
+p:['শরীরের জন্য বিপজ্জনক হলো কারেন্ট (অ্যাম্পিয়ার), শুধু ভোল্টেজ নয়।','কাজের আগে মেইন সুইচ বন্ধ করুন এবং টেস্টার দিয়ে লাইন মৃত কি না যাচাই করুন।','ভেজা হাতে বা ভেজা জায়গায় কাজ নয়; অন্তরক হাতলের যন্ত্র ও RCCB ব্যবহার করুন।','বিদ্যুৎস্পৃষ্টকে আগে সুইচ বন্ধ করে বা শুকনো অন্তরক বস্তু দিয়ে সরান, খালি হাতে ছোঁবেন না। জাতীয় জরুরি সেবা ৯৯৯।'],
+tb:[['কারেন্ট','সম্ভাব্য প্রভাব'],['১ mA','সামান্য শিরশিরানি'],['১০–২০ mA','পেশি শক্ত, হাত ছাড়ানো কঠিন'],['৫০ mA+','হৃৎস্পন্দন বিঘ্নিত হতে পারে'],['১০০ mA+','প্রাণঘাতী হতে পারে']],
+k:'LOTO = তালা ও ট্যাগ লাগিয়ে নিশ্চিত করা যে কাজের সময় কেউ সুইচ অন করবে না।',
+tr:'সুইচ বন্ধ করেই কাজ শুরু করা। টেস্টার দিয়ে ভোল্টেজ নেই তা যাচাই করা ছাড়া লাইনকে নিরাপদ ধরবেন না।',
+m:'LOTO ধাপ: জানাও → বন্ধ করো → তালা দাও → ট্যাগ ঝোলাও → টেস্ট করো।',
+q:[{q:'শরীরের জন্য মূলত কোনটি বিপজ্জনক?',o:['শুধু ভোল্টেজ','কারেন্ট (অ্যাম্পিয়ার)','শুধু ওয়াটেজ'],a:1,e:'শরীরের ভেতর দিয়ে প্রবাহিত কারেন্টই ক্ষতির মাত্রা ঠিক করে।'},
+{q:'বিদ্যুৎস্পৃষ্ট ব্যক্তিকে উদ্ধারে প্রথম কাজ কী?',o:['সঙ্গে সঙ্গে হাত ধরে টানা','মেইন সুইচ বন্ধ করা','পানি ঢালা'],a:1,e:'আগে উৎস বন্ধ করতে হবে, নইলে উদ্ধারকারীও শক পাবেন।'}]},
+{id:'t3',m:'মডিউল ৩: পরিমাপ',t:'ওহমের সূত্র ও লোড হিসাব',
+ex:'পানির পাইপে ট্যাংকের চাপ = ভোল্টেজ, পানির প্রবাহ = কারেন্ট, পাইপ সরু হলে বাধা = রেজিস্ট্যান্স।',
+p:['ওহমের সূত্র: V = I × R','পাওয়ার: P = V × I (সিঙ্গেল ফেজ AC-তে পাওয়ার ফ্যাক্টর cosφ গুণ হয়)','এনার্জি: kWh = কিলোওয়াট × ঘণ্টা; ১ kWh = ১ ইউনিট।','কারেন্ট বের করা: I = P ÷ (V × cosφ)','উদাহরণ: মোট লোড ৩৪০৫ W, ২৩০ V, cosφ ০.৯ হলে I = ৩৪০৫ ÷ (২৩০×০.৯) ≈ ১৬.৪ A; নিরাপত্তার জন্য ৩২ A বা বেশি ব্রেকার ধরা হয়।'],
+tb:[['','সিঙ্গেল ফেজ','থ্রি ফেজ'],['ভোল্টেজ','প্রায় ২৩০ V','প্রায় ৪০০ V'],['তার','ফেজ + নিউট্রাল','৩ ফেজ + নিউট্রাল'],['ব্যবহার','বাসাবাড়ি, দোকান','কারখানা, বড় মোটর']],
+k:'লোড হিসাবের ক্রম: ওয়াট যোগ করুন → কারেন্ট বের করুন → নিরাপদ মার্জিন রেখে ব্রেকার ঠিক করুন।',
+tr:'মাল্টিমিটারে কারেন্ট মাপতে সিরিজে লাগাতে হয়, ভোল্টেজ মাপতে প্যারালালে। উল্টো করলে মিটার নষ্ট হতে পারে।',
+m:'ভোল্টেজ চাপ, কারেন্ট প্রবাহ, রেজিস্ট্যান্স বাধা: পানির পাইপ ভাবুন।',
+q:[{q:'ওহমের সূত্র কোনটি?',o:['V = I × R','P = V ÷ I','I = V × R'],a:0,e:'ভোল্টেজ = কারেন্ট × রেজিস্ট্যান্স।'},
+{q:'তার না কেটে কারেন্ট মাপে কোন যন্ত্র?',o:['মেগার','ক্ল্যাম্প মিটার','লাক্স মিটার'],a:1,e:'ক্ল্যাম্প মিটার তার ঘিরে ধরে কারেন্ট মাপে।'},
+{q:'ইনসুলেশন রেজিস্ট্যান্স মাপে কোন যন্ত্র?',o:['মেগার','ট্যাকোমিটার','ভোল্ট টেস্টার'],a:0,e:'মেগারকে ইনসুলেশন টেস্টারও বলা হয়।'}]},
+{id:'t4',m:'মডিউল ৩: পরিমাপ',t:'প্রোটেকশন ডিভাইস',
+ex:'বাড়ির ফিউজ যেমন পাহারাদার, প্রতিটি ডিভাইসের একেকটি আলাদা পাহারার দায়িত্ব আছে।',
+p:['MCB ছোট লোডের ওভারলোড ও শর্ট সার্কিট থেকে রক্ষা করে, ট্রিপ করলে আবার চালু করা যায়।','RCCB আর্থ লিকেজ ধরে শক থেকে প্রাণ বাঁচায় (সাধারণত ৩০ mA)।','MCB কার্ভ: B (৩–৫ গুণ, বাতি/সকেট), C (৫–১০ গুণ, ছোট মোটর/এসি), D (১০–২০ গুণ, বড় মোটর/ট্রান্সফরমার)।'],
+tb:[['ডিভাইস','কাজ'],['ফিউজ','গলে গিয়ে সার্কিট কাটে, একবার ব্যবহারযোগ্য'],['MCB','ছোট লোড, ওভারলোড ও শর্ট সার্কিট'],['MCCB','বড় লোড'],['ACB','খুব বড় ইনস্টলেশনের মেইন'],['RCCB','আর্থ লিকেজ ও শক'],['SPD','বজ্রপাত ও ভোল্টেজ স্পাইক']],
+k:'ব্রেকারের রেটিং তারের ক্ষমতার কম এবং লোড কারেন্টের বেশি হতে হবে।',
+tr:'RCCB ওভারলোড বা শর্ট সার্কিট থেকে রক্ষা করে না; সেটা MCB-র কাজ। ভালো সুরক্ষায় দুটোই লাগে।',
+m:'B-C-D = বাতি, চালু মোটর, ডাঙর মোটর: কার্ভ যত এগোয় ধাক্কা সহ্য তত বেশি।',
+q:[{q:'আর্থ লিকেজ থেকে শক প্রতিরোধ করে কোনটি?',o:['MCB','RCCB','ফিউজ'],a:1,e:'RCCB/RCD আর্থ লিকেজ ধরে সার্কিট বন্ধ করে।'},
+{q:'বড় মোটরের জন্য কোন MCB কার্ভ বেশি উপযুক্ত?',o:['B','C','D'],a:2,e:'D কার্ভ বেশি স্টার্টিং কারেন্ট সহ্য করে।'}]},
+{id:'t5',m:'মডিউল ৪: হাউজ ওয়্যারিং',t:'হাউজ ওয়্যারিংয়ের নিয়ম',
+ex:'বাড়ির সবগুলো সকেট এক সংযোগে না গুঁজে ঘর ভাগ করে আলাদা লাইনে দেওয়া হয়, যেমন এক ভ্যানে সবাইকে না ঠেসে একাধিক ভ্যান।',
+p:['সুইচ সবসময় ফেজ তারে বসাতে হয়, নিউট্রালে নয়।','সব সার্কিটে আর্থ তার থাকতে হবে; আর্থ তারে সুইচ বা ফিউজ বসানো যাবে না।','তারের জোড়া খোলা জায়গায় রাখা যাবে না, জংশন বক্সে দিতে হবে।','এক সার্কিটে বেশি লোড না দিয়ে একাধিক সার্কিটে ভাগ করুন। সুইচ বোর্ড সাধারণত মেঝে থেকে ১.২–১.৪ মিটার উচ্চতায়।'],
+tb:[['ওয়্যারিং','বৈশিষ্ট্য'],['চ্যানেল','দেয়ালের উপরে, খরচ কম, ঝুঁকি বেশি'],['কনসিলড কন্ডুইট','দেয়ালের ভেতরে, নিরাপদ ও সুন্দর, খরচ বেশি']],
+k:'সুইচ = ফেজ। আর্থ = সব সার্কিটে। জোড়া = জংশন বক্সে।',
+tr:'সুইচ নিউট্রালে বসালে সুইচ অফ থাকলেও বাতির সকেটে ফেজ থাকে, শকের ঝুঁকি।',
+m:'"সুইচ ফেজে, আর্থ সবখানে, জোড়া বক্সে": তিন লাইন মুখস্থ।',
+q:[{q:'সুইচ কোন তারে বসাতে হয়?',o:['নিউট্রাল','আর্থ','ফেজ'],a:2,e:'সুইচ অফ থাকলে যাতে লাইন ডেড থাকে, তাই ফেজে।'},
+{q:'নিরাপত্তা ও টেকসইতার দিক থেকে কোন ওয়্যারিং এগিয়ে?',o:['কনসিলড কন্ডুইট','খোলা চ্যানেল','দুটোই সমান'],a:0,e:'দেয়ালের ভেতরে পাইপে তার থাকায় আঘাত ও আগুনের ঝুঁকি কম।'}]},
+{id:'t6',m:'মডিউল ৫: ইন্ডাস্ট্রিয়াল',t:'DOL স্টার্টার ও মোটর কন্ট্রোল',
+ex:'ভারী ট্রাক চালু করতে প্রথমে অনেক জ্বালানি লাগে, মোটরও চালুর মুহূর্তে অনেক বেশি কারেন্ট টানে।',
+p:['DOL (Direct On Line) পদ্ধতিতে মোটর সরাসরি পূর্ণ ভোল্টেজে চালু হয়, ছোট ও মাঝারি মোটরে ব্যবহৃত হয়।','স্টার্টিং কারেন্ট রেটেড কারেন্টের প্রায় ৬–৮ গুণ হতে পারে।','হোল্ডিং কন্টাক্ট: কন্টাক্টরের NO অক্সিলিয়ারি স্টার্ট বাটনের সমান্তরালে থাকে, তাই বাটন ছাড়লেও মোটর চলে।','ফরওয়ার্ড-রিভার্স কন্ট্রোলে দুই কন্টাক্টর একসাথে চালু হলে ফেজ শর্ট হয়, তাই ইন্টারলক বাধ্যতামূলক।','স্টার-ডেল্টায় স্টার সংযোগে স্টার্টিং কারেন্ট DOL-এর প্রায় এক-তৃতীয়াংশ।'],
+tb:[['উপাদান','কাজ'],['কন্টাক্টর','বড় কারেন্টের মোটর সার্কিট চালু/বন্ধ'],['OLR','ওভারলোডে মোটর রক্ষা'],['স্টার্ট বাটন (NO)','সাধারণত খোলা'],['স্টপ বাটন (NC)','সাধারণত বন্ধ']],
+k:'চালুর সময় কারেন্ট ৬–৮ গুণ। স্টার-ডেল্টা তা প্রায় ১/৩ করে আনে।',
+tr:'ফরওয়ার্ড ও রিভার্স কন্টাক্টর একসাথে চালু হতে দেওয়া। ইন্টারলক ছাড়া বড় দুর্ঘটনা হয়।',
+m:'স্টার্ট NO, স্টপ NC: "চালু করতে খোলা, থামাতে বন্ধ" মনে রাখুন।',
+q:[{q:'DOL স্টার্টারে স্টার্টিং কারেন্ট সাধারণত কত গুণ?',o:['১–২ গুণ','৬–৮ গুণ','২০ গুণ'],a:1,e:'চালুর মুহূর্তে রেটেড কারেন্টের ৬–৮ গুণ হতে পারে।'},
+{q:'থ্রি ফেজ মোটরের দিক বদলাতে কী করতে হয়?',o:['তিন ফেজ বদল','যেকোনো দুই ফেজ বদল','নিউট্রাল বদল'],a:1,e:'যেকোনো দুটি ফেজ অদলবদল করলে ঘূর্ণনের দিক উল্টে যায়।'}]},
+{id:'t7',m:'মডিউল ৬: সোলার ও CCTV',t:'সোলার সিস্টেম',
+ex:'বাসার ছাদে পানির ট্যাংক সূর্যের আলোয় ভরে, দিনে জমান, রাতে ব্যবহার করুন। সোলারে ব্যাটারি সেই ট্যাংক।',
+p:['সোলার প্যানেল আলো থেকে সরাসরি DC বিদ্যুৎ তৈরি করে; ইনভার্টার তাকে AC বানায়।','সিরিজে ভোল্টেজ যোগ হয়, কারেন্ট একই; প্যারালালে কারেন্ট যোগ হয়, ভোল্টেজ একই।','ক্ষমতা: kWp = দৈনিক kWh ÷ (পিক সান আওয়ার × ০.৭৫)।','উদাহরণ: ৫ kWh ÷ (৪.৫ × ০.৭৫) ≈ ১.৫ kWp, অর্থাৎ ৫৫০ Wp-এর ৩টি প্যানেল।','ব্যাটারি: দৈনিক লোড × দিন ÷ DoD; লেড-অ্যাসিডে সাধারণত ৫০% DoD।'],
+tb:[['ধরন','ব্যাটারি','বৈশিষ্ট্য'],['অন-গ্রিড','নেই','উদ্বৃত্ত গ্রিডে যায়, গ্রিড গেলে বন্ধ'],['অফ-গ্রিড','আছে','গ্রিড ছাড়া, দুর্গম এলাকা'],['হাইব্রিড','আছে','গ্রিড + সোলার + ব্যাকআপ']],
+k:'প্যানেল DC তৈরি করে। ইনভার্টার বদলে AC বানায়।',
+tr:'আলো পড়লেই প্যানেল বিদ্যুৎ তৈরি করে, বন্ধ করা যায় না। লোড অবস্থায় MC4 কানেক্টর খুলবেন না; DC আর্ক ভয়ংকর।',
+m:'সিরিজ = ভোল্ট যোগ ("সি-ভ"), প্যারালাল = কারেন্ট যোগ।',
+q:[{q:'সোলার প্যানেল সরাসরি কী ধরনের বিদ্যুৎ তৈরি করে?',o:['AC','DC','পালস AC'],a:1,e:'প্যানেল DC তৈরি করে, ইনভার্টার AC বানায়।'},
+{q:'প্যানেল সিরিজে লাগালে কী যোগ হয়?',o:['কারেন্ট','ভোল্টেজ','কিছুই না'],a:1,e:'সিরিজে ভোল্টেজ যোগ হয়, কারেন্ট একই থাকে।'}]},
+{id:'t8',m:'মডিউল ৬: সোলার ও CCTV',t:'CCTV ইন্সটলেশন',
+ex:'বাসার গেটে দারোয়ানের মতো, ক্যামেরা চোখ আর রেকর্ডার তার স্মৃতি।',
+p:['DVR অ্যানালগ HD ক্যামেরার সাথে, কোঅ্যাক্সিয়াল (BNC) তারে।','NVR আইপি ক্যামেরার সাথে, নেটওয়ার্ক তার (Cat6) ও PoE-তে।','Cat6 তারের সর্বোচ্চ দৈর্ঘ্য সাধারণত প্রায় ১০০ মিটার।','ক্যামেরা সাধারণত ২.৫–৩ মিটার উচ্চতায়, সরাসরি সূর্যের দিকে নয়।','স্টোরেজ (GB) = ক্যামেরা × Mbps × ০.৪৫ × ২৪ × দিন।','উদাহরণ: ৪টি ক্যামেরা, ২ Mbps, ৩০ দিন = ৪×২×০.৪৫×২৪×৩০ ≈ ২৫৯২ GB, অর্থাৎ প্রায় ২.৬ TB; তাই ৩ বা ৪ TB HDD নিন।'],
+tb:[['','DVR','NVR'],['ক্যামেরা','অ্যানালগ HD','আইপি'],['তার','কোঅ্যাক্সিয়াল (BNC)','Cat6 (PoE)']],
+k:'DVR = অ্যানালগ + কোঅ্যাক্সিয়াল। NVR = আইপি + নেটওয়ার্ক।',
+tr:'ডিফল্ট পাসওয়ার্ড না বদলানো। অন্যরা আপনার ক্যামেরায় ঢুকতে পারে। বাথরুম ও চেঞ্জিং রুমে ক্যামেরা বসাবেন না।',
+m:'D-V-R: ডি-এ-না? না, "DVR = ডিজিটাল ভিডিও রেকর্ডার = পুরোনো (অ্যানালগ) ক্যামেরার সঙ্গী"।',
+q:[{q:'আইপি ক্যামেরার জন্য কোন রেকর্ডার?',o:['DVR','NVR','UPS'],a:1,e:'Network Video Recorder আইপি ক্যামেরার জন্য।'},
+{q:'Cat6 তারের সর্বোচ্চ দৈর্ঘ্য সাধারণত প্রায় কত?',o:['১০ মিটার','১০০ মিটার','১০০০ মিটার'],a:1,e:'সাধারণ নিয়মে একটি Cat6 তার প্রায় ১০০ মিটার পর্যন্ত।'}]}
+];
+const $=s=>document.querySelector(s);
+let done={};try{done=JSON.parse(localStorage.getItem('done')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('done',JSON.stringify(done))}catch(e){}};
+function theme(t){document.documentElement.dataset.bsTheme=t;try{localStorage.setItem('th',t)}catch(e){}}
+try{theme(localStorage.getItem('th')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))}catch(e){}
+$('#th').onclick=()=>theme(document.documentElement.dataset.bsTheme=='dark'?'light':'dark');
+function closeSide(){const o=$('#side');if(o.classList.contains('show')||o.classList.contains('showing')){bootstrap.Offcanvas.getOrCreateInstance(o).hide()}}
+$('#nav').addEventListener('click',e=>{if(e.target.closest('a'))closeSide()});
+$('#rs').onclick=()=>{if(confirm('সব প্রগ্রেস মুছে ফেলবেন?')){done={};save();try{localStorage.removeItem('last')}catch(e){}closeSide();if(location.hash!='#t1')location.hash='#t1';else render()}};
+const bn=n=>String(n).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+function nav(cur){let h='',m='';T.forEach(x=>{if(x.m!=m){m=x.m;h+=`<div class="mod">${m}</div>`}h+=`<a href="#${x.id}" class="${x.id==cur?'on ':''}${done[x.id]?'ok':''}">${x.t}</a>`});
+h+=`<div class="mod">চূড়ান্ত</div><a href="#final" class="${cur=='final'?'on ':''}${done.final?'ok':''}">চূড়ান্ত কুইজ</a>`;$('#nav').innerHTML=h;
+const c=T.filter(x=>done[x.id]).length;$('#bar').style.width=(c/T.length*100)+'%';$('#pt').textContent=bn(c)+'/'+bn(T.length)+' টপিক সম্পন্ন'}
+function table(r){return`<div class="table-responsive"><table class="table table-bordered table-sm"><thead class="table-light"><tr>${r[0].map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${r.slice(1).map(x=>`<tr>${x.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`}
+function quiz(qs,onDone){let ans=0,ok=0;const el=document.createElement('div');
+el.innerHTML=qs.map((q,i)=>`<div class="mb-3" data-q="${i}"><p class="fw-semibold mb-1">${bn(i+1)}. ${q.q}</p>${q.o.map((o,j)=>`<button class="btn btn-outline-secondary opt" data-j="${j}">${o}</button>`).join('')}<div class="fb small mt-1"></div></div>`).join('')+'<div class="sc fw-bold"></div>';
+el.onclick=e=>{const b=e.target.closest('.opt');if(!b)return;const box=b.closest('[data-q]');if(box.dataset.d)return;box.dataset.d=1;
+const q=qs[box.dataset.q],j=+b.dataset.j,r=j==q.a;ans++;if(r)ok++;
+box.querySelectorAll('.opt').forEach((x,k)=>{x.disabled=true;if(k==q.a)x.className='btn btn-success opt';else if(k==j)x.className='btn btn-danger opt'});
+box.querySelector('.fb').innerHTML=(r?'✅ সঠিক! ':'❌ ভুল। ')+q.e;
+if(ans==qs.length){el.querySelector('.sc').textContent=`স্কোর: ${bn(ok)}/${bn(qs.length)}`;onDone&&onDone(ok,qs.length)}};return el}
+function render(){let last=null;try{last=localStorage.getItem('last')}catch(e){}
+const id=location.hash.slice(1)||last||'t1',main=$('#main');main.innerHTML='';closeSide();
+try{localStorage.setItem('last',id)}catch(e){}
+if(id=='final'){main.innerHTML='<h2>চূড়ান্ত কুইজ</h2><p class="text-secondary">সব টপিক থেকে প্রশ্ন।</p>';
+main.appendChild(quiz(T.flatMap(x=>x.q),()=>{done.final=1;save();nav(id)}));nav(id);scrollTo(0,0);return}
+const i=Math.max(0,T.findIndex(x=>x.id==id)),x=T[i];
+main.innerHTML=`<small class="text-secondary">${x.m}</small><h2 class="fw-bold">${x.t}</h2>
+<h5 class="mt-4">🌍 আগে একটি উদাহরণ</h5><div class="ex">${x.ex}</div>
+<h5 class="mt-4">📌 মূল ধারণা</h5><ul>${x.p.map(p=>`<li>${p}</li>`).join('')}</ul>${table(x.tb)}
+<div class="co k"><b>মূল কথা (Key Takeaway):</b> ${x.k}</div>
+<div class="co t"><b>সাধারণ ভুল (Common Trap):</b> ${x.tr}</div>
+<div class="co m"><b>মনে রাখার কৌশল (Memory Trick):</b> ${x.m}</div>
+<h5 class="mt-4">🧠 নিজেকে যাচাই করুন</h5><div id="qz"></div>
+<div class="d-flex justify-content-between mt-4">${i>0?`<a class="btn btn-outline-primary" href="#${T[i-1].id}">← আগের</a>`:'<span></span>'}<a class="btn btn-primary" href="#${i<T.length-1?T[i+1].id:'final'}">পরের →</a></div>`;
+$('#qz').appendChild(quiz(x.q,()=>{done[x.id]=1;save();nav(id)}));nav(id);scrollTo(0,0)}
+addEventListener('hashchange',render);render();
+</script>
+</body>
+</html>
